@@ -16,5 +16,13 @@ public class Main {
             e.printStackTrace();
         }
 
+        //Запуск домашки 10
+        System.out.println();
+        System.out.println("Domashka 10.");
+        PersonIOUtil.serializePerson(person2);
+        System.out.println("Restored person (from person2): " + PersonIOUtil.unserializedPerson().toString());
+        MyFiles myFiles = new MyFiles();
+        myFiles.readDir(".\\");
+        myFiles.saveList();
     }
 }

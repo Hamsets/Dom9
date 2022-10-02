@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 public class PersonIOUtil {
@@ -15,7 +12,6 @@ public class PersonIOUtil {
         }
 
     }
-
     static ArrayList<Person> readPersons (String filename) throws EmptySourceFileException{
         ArrayList<Person> personArrayList = new ArrayList<>();
         String s = null;
@@ -50,5 +46,21 @@ public class PersonIOUtil {
             System.out.println(person.toString());
         }
     }
-
+    static void serializePerson (Person person){
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Person.bin"))) {
+            oos.writeObject(person);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    static Person unserializedPerson (){
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Person.bin"))) {
+            return (Person) ois.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }
